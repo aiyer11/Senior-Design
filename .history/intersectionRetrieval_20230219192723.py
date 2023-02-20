@@ -8,11 +8,13 @@ def handler(event, context):
     coordinates = (41.716344, -72.685169)
     lat = coordinates[0]
     lon = coordinates[1]
+
     # hashing lat and long values
     hashPrecision = 2
     geohash = str(round(lat, hashPrecision)) + "-" + str(round(lon, hashPrecision))
 
     # getting coordinates from table using hash (primary key)
-    data = table.get_item(Key={"geo_hash": geohash, "type": "server"})
+    data = table.get_item(Key=geohash)
+
     # filtering returned data in order to perform calculations
     return data["Item"]

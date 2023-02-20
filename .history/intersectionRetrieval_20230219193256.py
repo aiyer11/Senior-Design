@@ -13,6 +13,7 @@ def handler(event, context):
     geohash = str(round(lat, hashPrecision)) + "-" + str(round(lon, hashPrecision))
 
     # getting coordinates from table using hash (primary key)
-    data = table.get_item(Key={"geo_hash": geohash, "type": "server"})
+    data = table.get_item(Key={"partition_key": geohash})
+
     # filtering returned data in order to perform calculations
     return data["Item"]
